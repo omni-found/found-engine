@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this module in your publication, please cite as below."
+type: software
+title: "The `found` engine as an Omnibenchmark module"
+abstract: |
+  This is a multi-entrypoint module that interfaces with Elia's found CLI
+authors:
+  - family-names: "Robinson"
+    given-names: "Mark"
+    email: "mark.robinson@mls.uzh.ch"
+date-released: "2026-07-22"
+version: "1.0.0"
+license: MIT
+url: "https://github.com/CHANGE_ME/found-engine"
+repository-code: "https://github.com/CHANGE_ME/found-engine"
+keywords:
+  - bioinformatics
+  - computational-biology
+  - benchmark
+  - omnibenchmark
+  - module
+references:
+  - title: "Original implementation"
+    authors:
+      - family-names: "Robinson"
+        given-names: "Mark"
+    type: software
+    url: "https://github.com/CHANGE_ME/found-engine"

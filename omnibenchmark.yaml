@@ -1,4 +1,7 @@
 # OmniBenchmark Module Configuration
 
 entrypoints:
-  default: run.py
+  download: download.py
+  embed: embed.py
+  regress: regress.py
+  binarize: binarize.py

@@ -45,7 +45,7 @@ def main():
     dataset_name = params["dataset_name"]
     print(f"dataset_name: {dataset_name}")
 
-    cmd = "python " + Path.cwd + "/bench/bench.py reg -z 42 -d " + dataset_name
+    cmd = "python " + str(Path.cwd) + "/bench/bench.py reg -z 42 -d " + dataset_name
     cmd = cmd + " -e " + args.embed_method + " " + args.dim
     print(cmd)
 

@@ -32,7 +32,7 @@ def main():
     output_dir.mkdir(parents=True, exist_ok=True)
 
     print("Running the fetch.")
-    output_h5ad = output_dir / f"{args.name}_rawdata.h5ad"
+    output_h5ad = output_dir / f"{args.name}_raw.h5ad"
     print(f"Output file will be: {output_h5ad}")
 
     cmd = f"get_{args.dataset_name}()"

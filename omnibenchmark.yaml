@@ -2,7 +2,7 @@
 
 entrypoints:
   download:  download.py
-  embed: embed.R
-  regress: regress.R
-  binarize: binarize.R
-  evaluate: evaluate.R
+  embed: embed.py
+  regress: regress.py
+  binarize: binarize.py
+  evaluate: evaluate.py

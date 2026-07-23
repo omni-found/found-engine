@@ -34,7 +34,7 @@ def main():
     output_h5ad = output_dir / f"{args.name}_rawdata.h5ad"
     print(f"Output file will be: {output_h5ad}")
 
-    cmd = eval(f"get_{args.dataset}()")
+    cmd = f"get_{args.dataset}()"
     print(f"Running the fetch command: {cmd}")
     ad = eval(cmd)
     n_cells, n_features = adata.shape

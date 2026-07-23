@@ -25,8 +25,17 @@ def main():
     for k in ("output_dir", "name", "dataset"):
         print(f"  {k}: {getattr(args, k)}")
 
-    # TODO: Implement your module logic
-    # Process the data using main function
+    print("Running the fetch.")
+    output_h5ad = args.output_dir / f"{args.name}_rawdata.h5ad"
+    print(f"Output file will be: {output_h5ad}")
+
+    cmd = eval(f"get_{args.dataset}()")
+    print(f"Running the fetch command: {cmd}")
+    ad = eval(cmd)
+    n_cells, n_features = adata.shape
+    print(f"Got an AnnData with {n_cells} cells and {n_features} features.")
+    print(f"Writing {output_h5ad} ..\n")
+    ad.write_h5ad(output_h5ad)
     # process_data(args)
 
 if __name__ == "__main__":

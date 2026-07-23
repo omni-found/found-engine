@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import datetime
 import sys
 from pathlib import Path
 
@@ -37,11 +38,15 @@ def main():
     cmd = f"get_{args.dataset}()"
     print(f"Running the fetch command: {cmd}")
     ad = eval(cmd)
-    n_cells, n_features = adata.shape
+    n_cells, n_features = ad.shape
     print(f"Got an AnnData with {n_cells} cells and {n_features} features.")
     print(f"Writing {output_h5ad} ..\n")
     ad.write_h5ad(output_h5ad)
-    # process_data(args)
+
+    print("Checking output.")
+    stat = Path(output_h5ad).stat()  # raises if file missing
+    print("Size:", stat.st_size, "bytes")
+    print("Created:", stat.st_ctime)
 
 if __name__ == "__main__":
     main()

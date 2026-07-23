@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
-import datetime as dt.
+import datetime as dt
 import sys
 from pathlib import Path
 

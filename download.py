@@ -2,6 +2,7 @@
 
 import argparse
 import sys
+from pathlib import Path
 
 # import Elia's fetcher
 from src.bench.fetch import get_jakel
@@ -25,8 +26,12 @@ def main():
     for k in ("output_dir", "name", "dataset"):
         print(f"  {k}: {getattr(args, k)}")
 
+    # make directory if doesn't exist
+    output_dir = Path(args.output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
     print("Running the fetch.")
-    output_h5ad = args.output_dir / f"{args.name}_rawdata.h5ad"
+    output_h5ad = output_dir / f"{args.name}_rawdata.h5ad"
     print(f"Output file will be: {output_h5ad}")
 
     cmd = eval(f"get_{args.dataset}()")

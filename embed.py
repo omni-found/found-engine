@@ -43,11 +43,13 @@ def main():
     with open(params_json, "r") as jsonfile: 
       params = json.load(jsonfile)
     dataset_name = params["dataset_name"]
-    print(f"dataset_name: {input_dir}")
+    print(f"dataset_name: {dataset_name}")
 
-    #cmd = ["python", Path.cwd + "/bench/bench.py", "-d "]
-    cmd = ["python", Path.cwd + "/bench/bench.py", "-d"]
+    cmd = "python " + Path.cwd + "/bench/bench.py reg -z 42 -d " + dataset_name
+    cmd = cmd + " -e " + args.embed_method + " " + args.dim
     print(cmd)
+
+    #python bench.py reg -c /data/mark/found-cache -z 42 -d jakel -e log_pca 30 -r logit
 
     #print("Running the fetch command: {cmd}")
     #ad = eval(cmd)

@@ -50,6 +50,13 @@ def main():
     print("Size:", stat.st_size, "bytes")
     print("Created:", dt.datetime.fromtimestamp(stat.st_ctime))
 
+    print("Creating symlink to cache.")
+    pth = Path.cwd() / ".." / ".." / ".." / ".found-cache" / "data" / f"{args.dataset_name}.h5ad"
+    print(pth)
+    print(" --> ")
+    print(output_h5ad)
+    Path(pth).symlink_to(output_h5ad)
+
 if __name__ == "__main__":
     main()
 

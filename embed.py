@@ -5,6 +5,9 @@ import datetime as dt
 import sys
 from pathlib import Path
 import json
+import subprocess
+import logging
+from src.bench.bench import mk_emb_path
 
 def parse_args():
     parser = argparse.ArgumentParser(description='OmniBenchmark module')
@@ -33,7 +36,7 @@ def main():
     output_dir.mkdir(parents=True, exist_ok=True)
 
     # specify output
-    embedding_tsv = output_dir / f"{args.name}_embeddings.tsv"
+    embedding_tsv = output_dir / f"{args.name}_embedding.tsv"
     print(f"Output file: {embedding_tsv}")
 
     # derive the name of input dataset from 'data_ad'
@@ -45,23 +48,43 @@ def main():
     dataset_name = params["dataset_name"]
     print(f"dataset_name: {dataset_name}")
 
-    cmd = "python " + str(Path.cwd) + "/bench/bench.py reg -z 42 -d " + dataset_name
-    cmd = cmd + " -e " + args.embed_method + " " + args.dim
-    print(cmd)
+    # specify location of Elia's b/m code
+    bench_py = Path.cwd() / "src" / "bench" / "bench.py"
+    stat = Path(bench_py).stat()
 
-    #python bench.py reg -c /data/mark/found-cache -z 42 -d jakel -e log_pca 30 -r logit
+    # manually construct the command
+    #python bench.py emb -c /data/mark/found-cache -z 42 -d jakel -e log_pca
+    cache_dir = Path.cwd() / ".." / ".." / ".." / ".found-cache"
+    cmd = ["python", str(bench_py), "emb",
+           "-d", dataset_name, "-e", args.embed_method, str(args.dim),
+           "-z", str(42), "-c", str(cache_dir)]
+    print("Command to run:")
+    print(" ".join(cmd))
 
-    #print("Running the fetch command: {cmd}")
-    #ad = eval(cmd)
-    #n_cells, n_features = ad.shape
-    #print(f"Got an AnnData with {n_cells} cells and {n_features} features.")
-    #print(f"Writing {output_h5ad}.")
-    #ad.write_h5ad(output_h5ad)
+    # run the process in a way that captures the deets
+    try:
+      result = subprocess.run(cmd, check=True, capture_output=True, text=True)
+      logging.info("stdout: %s", result.stdout)
+      logging.info("stderr: %s", result.stderr)
+    except subprocess.CalledProcessError as e:
+      logging.error("Command failed with return code %s", e.returncode)
+      logging.error("stdout: %s", e.stdout)
+      logging.error("stderr: %s", e.stderr)
+      logging.error("cmd: %s", e.cmd)
 
-    #print("Checking output.")
-    #stat = Path(output_h5ad).stat()  # raises if file missing
-    #print("Size:", stat.st_size, "bytes")
-    #print("Created:", dt.datetime.fromtimestamp(stat.st_ctime))
+    # derive location of output (to create symlink to)
+    print("Creating symlink to cache.")
+    pth = cache_dir / mk_emb_path(dataset_name, None, args.embed_method, args.dim) 
+    print(embedding_tsv)
+    print(" --> ")
+    print(pth)
+    Path(embedding_tsv).symlink_to(pth)
+
+    print("Checking output.")
+    stat = pth.stat()  # raises if file missing
+    print("Size:", stat.st_size, "bytes")
+    print("Created:", dt.datetime.fromtimestamp(stat.st_ctime))
+
 
 if __name__ == "__main__":
     main()

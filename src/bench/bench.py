@@ -625,7 +625,7 @@ class RunEmbConf(BaseConf):
         LOGGER.debug(f"{cls.__name__}.from_args : got args - {args}")
 
         return cls(
-            emb_runs=cls.mk_dict(cache, {ds: args.emb_methods for ds in args.datasets}),
+            emb_runs=cls.mk_dict(args.cache, {ds: args.emb_methods for ds in args.datasets}),
             cache=args.cache,
             skip=args.skip_if_exists,
             catch=args.catch_on_err,

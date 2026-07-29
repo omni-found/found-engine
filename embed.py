@@ -53,7 +53,8 @@ def main():
     stat = Path(bench_py).stat()
 
     # manually construct the command
-    #python bench.py emb -c /data/mark/found-cache -z 42 -d jakel -e log_pca
+    #python found-engine/src/bench/bench.py emb -c /Users/mark/projects/omb/found/cache \
+    #       -z 42 -d jakel -e log_pca 20
     cache_dir = Path.cwd() / ".." / ".." / ".." / ".found-cache"
     cmd = ["python", str(bench_py), "emb",
            "-d", dataset_name, "-e", args.embed_method, str(args.dim),

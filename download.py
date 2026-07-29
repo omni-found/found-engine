@@ -55,6 +55,8 @@ def main():
     print(pth)
     print(" --> ")
     print(output_h5ad)
+    if pth.exists() or pth.is_symlink():
+      pth.unlink()          # removes file/symlink (but not directory)
     Path(pth).symlink_to(output_h5ad)
 
 if __name__ == "__main__":

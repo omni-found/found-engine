@@ -18,6 +18,7 @@ def parse_args():
     parser.add_argument('--name', type=str, required=True,
                        help='Module name/identifier')
     parser.add_argument('--dataset_name', type=str, help='Input file')
+    parser.add_argument('--subset', type=str, help='Subpopulation of cells')
     return parser.parse_args()
 
 def main():
@@ -37,21 +38,23 @@ def main():
     output_h5ad = output_dir / f"{args.name}_raw.h5ad"
     print(f"Output file will be: {output_h5ad}")
 
-    cmd = f"get_{args.dataset_name}()"
-    print(f"Running the fetch command: {cmd}")
-    ad = eval(cmd)
-    n_cells, n_features = ad.shape
-    print(f"Got an AnnData with {n_cells} cells and {n_features} features.")
-    print(f"Writing {output_h5ad}.")
-    ad.write_h5ad(output_h5ad)
-
-    print("Checking output.")
-    stat = Path(output_h5ad).stat()  # raises if file missing
-    print("Size:", stat.st_size, "bytes")
-    print("Created:", dt.datetime.fromtimestamp(stat.st_ctime))
+    pth = Path.cwd() / ".." / ".." / ".." / ".found-cache" / "data" / f"{args.dataset_name}.h5ad"
+    if pth.exists():
+      print("Dataset was already fetched; not fetching again.")
+    else:
+      cmd = f"get_{args.dataset_name}()"
+      print(f"Running the fetch command: {cmd}")
+      ad = eval(cmd)
+      n_cells, n_features = ad.shape
+      print(f"Got an AnnData with {n_cells} cells and {n_features} features.")
+      print(f"Writing {output_h5ad}.")
+      ad.write_h5ad(output_h5ad)
+      print("Checking output.")
+      stat = Path(output_h5ad).stat()  # raises if file missing
+      print("Size:", stat.st_size, "bytes")
+      print("Created:", dt.datetime.fromtimestamp(stat.st_ctime))
 
     print("Creating symlink to cache.")
-    pth = Path.cwd() / ".." / ".." / ".." / ".found-cache" / "data" / f"{args.dataset_name}.h5ad"
     print(pth)
     print(" --> ")
     print(output_h5ad)

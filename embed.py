@@ -39,13 +39,20 @@ def main():
     embedding_tsv = output_dir / f"{args.name}_embedding.tsv"
     print(f"Output file: {embedding_tsv}")
 
-    # derive the name of input dataset from 'data_ad'
+    # derive the name/subset of input dataset from 'data_ad'
     input_dir = Path(args.data_ad).parent
     print(f"Input dir: {input_dir}")
     params_json = input_dir / "parameters.json"
     with open(params_json, "r") as jsonfile: 
       params = json.load(jsonfile)
     dataset_name = params["dataset_name"]
+    group = params["group"]
+    print(f"dataset_name group: {dataset_name} {group}")
+
+    if group == "all":
+      group = None
+    else:
+      dataset_name = dataset_name + "/" + args.group
     print(f"dataset_name: {dataset_name}")
 
     # specify location of Elia's b/m code
@@ -75,7 +82,7 @@ def main():
 
     # derive location of output (to create symlink to)
     print("Creating symlink to cache.")
-    pth = cache_dir / mk_emb_path(dataset_name, None, args.embed_method, args.dim) 
+    pth = cache_dir / mk_emb_path(dataset_name, group, args.embed_method, args.dim) 
     print(embedding_tsv)
     print(" --> ")
     print(pth)

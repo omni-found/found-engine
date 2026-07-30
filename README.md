@@ -14,7 +14,7 @@ This is a multi-entrypoint module that interfaces with Elia's found CLI
 
 Clone this repository:
 ```bash
-git clone https://github.com/CHANGE_ME/found-engine.git
+git clone https://github.com/omni-found/found-engine.git
 cd found-engine
 ```
 
@@ -34,8 +34,7 @@ If you use this module in your research, please cite it using the information in
 
 ## License
 
-This project is licensed under the MIT License - see the `CITATION.cff` file for details.
+This project is licensed under the MIT License - see the `CITATION.cff` file for details. Note that this repository includes code derived from [afanasiev-2026-found_lib](https://github.com/goeva-lab/afanasiev-2026-found_lib), which is licensed under the [EUPL-1.2](https://github.com/goeva-lab/afanasiev-2026-found_lib/blob/main/LICENSE).
 
 ---
 
-**Note**: Remember to update the GitHub URL (`CHANGE_ME`) to point to your actual repository!

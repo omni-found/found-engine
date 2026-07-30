@@ -46,13 +46,13 @@ def main():
     with open(params_json, "r") as jsonfile: 
       params = json.load(jsonfile)
     dataset_name = params["dataset_name"]
-    group = params["group"]
-    print(f"dataset_name group: {dataset_name} {group}")
+    subset = params["subset"]
+    print(f"dataset_name subset: {dataset_name} {subset}")
 
-    if group == "all":
-      group = None
+    if subset == "all":
+      subset = None
     else:
-      dataset_name = dataset_name + "/" + args.group
+      dataset_name = dataset_name + "/" + subset
     print(f"dataset_name: {dataset_name}")
 
     # specify location of Elia's b/m code
@@ -82,7 +82,7 @@ def main():
 
     # derive location of output (to create symlink to)
     print("Creating symlink to cache.")
-    pth = cache_dir / mk_emb_path(dataset_name, group, args.embed_method, args.dim) 
+    pth = cache_dir / mk_emb_path(params["dataset_name"], subset, args.embed_method, args.dim) 
     print(embedding_tsv)
     print(" --> ")
     print(pth)

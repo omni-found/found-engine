@@ -4,6 +4,7 @@ import argparse
 import datetime as dt
 import sys
 from pathlib import Path
+import anndata as annd
 
 # import Elia's fetcher
 print("Importing libraries.")
@@ -48,7 +49,8 @@ def main():
       n_cells, n_features = ad.shape
       print(f"Got an AnnData with {n_cells} cells and {n_features} features.")
       print(f"Writing {output_h5ad}.")
-      ad.write_h5ad(output_h5ad)
+      with annd.settings.override(allow_write_nullable_strings=False):
+        ad.write_h5ad(output_h5ad)
       print("Checking output.")
       stat = Path(output_h5ad).stat()  # raises if file missing
       print("Size:", stat.st_size, "bytes")

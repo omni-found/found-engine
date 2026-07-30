@@ -11,8 +11,8 @@ authors:
 date-released: "2026-07-22"
 version: "1.0.0"
 license: MIT
-url: "https://github.com/CHANGE_ME/found-engine"
-repository-code: "https://github.com/CHANGE_ME/found-engine"
+url: "https://github.com/omni-found/found-engine"
+repository-code: "https://github.com/omni-found/found-engine"
 keywords:
   - bioinformatics
   - computational-biology
@@ -25,4 +25,4 @@ references:
       - family-names: "Robinson"
         given-names: "Mark"
     type: software
-    url: "https://github.com/CHANGE_ME/found-engine"
+    url: "https://github.com/omni-found/found-engine"

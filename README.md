@@ -25,7 +25,5 @@ If you use this module in your research, please cite it using the information in
 
 ## License
 
-This project is licensed under the MIT License - see the `CITATION.cff` file for details. Note that this repository includes code derived from [afanasiev-2026-found_lib](https://github.com/goeva-lab/afanasiev-2026-found_lib), which is licensed under the [EUPL-1.2](https://github.com/goeva-lab/afanasiev-2026-found_lib/blob/main/LICENSE).
-
----
+This project is dual license. The benchmarking code is licensed under the MIT License - see the `CITATION.cff` and the [LICENSE file](LICENSE--benchmark.txt) for details. The application code in [src/bench](https://github.com/omni-found/found-engine/tree/main/src/bench) is from [afanasiev-2026-found_lib](https://github.com/goeva-lab/afanasiev-2026-found_lib), which is licensed under the [EUPL-1.2](LICENSE--benchmark.txt).
 
